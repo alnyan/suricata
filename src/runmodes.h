@@ -28,6 +28,7 @@ enum RunModes {
     RUNMODE_UNKNOWN = 0,
     RUNMODE_PCAP_DEV,
     RUNMODE_PCAP_FILE,
+    RUNMODE_TESTIMONY,
     RUNMODE_PFRING,
     RUNMODE_NFQ,
     RUNMODE_NFLOG,
@@ -98,6 +99,7 @@ int RunModeNeedsBypassManager(void);
 
 #include "runmode-pcap.h"
 #include "runmode-pcap-file.h"
+#include "runmode-testimony.h"
 #include "runmode-pfring.h"
 #include "runmode-nfq.h"
 #include "runmode-ipfw.h"

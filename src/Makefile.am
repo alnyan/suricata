@@ -375,6 +375,7 @@ runmode-netmap.c runmode-netmap.h \
 runmode-nfq.c runmode-nfq.h \
 runmode-nflog.c runmode-nflog.h \
 runmode-pcap.c runmode-pcap.h \
+runmode-testimony.c runmode-testimony.h \
 runmode-pcap-file.c runmode-pcap-file.h \
 runmode-pfring.c runmode-pfring.h \
 runmode-unittests.c runmode-unittests.h \
@@ -392,6 +393,7 @@ source-netmap.c source-netmap.h \
 source-nfq.c source-nfq.h \
 source-nflog.c source-nflog.h \
 source-pcap.c source-pcap.h \
+source-testimony.c source-testimony.h \
 source-pcap-file.c source-pcap-file.h \
 source-pcap-file-directory-helper.c source-pcap-file-directory-helper.h \
 source-pcap-file-helper.c source-pcap-file-helper.h \

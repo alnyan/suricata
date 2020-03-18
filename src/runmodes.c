@@ -211,6 +211,7 @@ void RunModeRegisterRunModes(void)
     memset(runmodes, 0, sizeof(runmodes));
 
     RunModeIdsPcapRegister();
+    RunModeIdsTestimonyRegister();
     RunModeFilePcapRegister();
     RunModeIdsPfringRegister();
     RunModeIpsNFQRegister();
@@ -292,6 +293,9 @@ void RunModeDispatch(int runmode, const char *custom_mode)
         switch (runmode) {
             case RUNMODE_PCAP_DEV:
                 custom_mode = RunModeIdsGetDefaultMode();
+                break;
+            case RUNMODE_TESTIMONY:
+                custom_mode = "single";
                 break;
             case RUNMODE_PCAP_FILE:
                 custom_mode = RunModeFilePcapGetDefaultMode();

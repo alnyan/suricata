@@ -88,6 +88,8 @@
 #include "source-pcap.h"
 #include "source-pcap-file.h"
 
+#include "source-testimony.h"
+
 #include "source-pfring.h"
 
 #include "source-erf-file.h"
@@ -868,6 +870,11 @@ void RegisterAllModules(void)
     /* pcap live */
     TmModuleReceivePcapRegister();
     TmModuleDecodePcapRegister();
+
+    /* testimony live */
+    TmModuleReceiveTestimonyRegister();
+    TmModuleDecodeTestimonyRegister();
+
     /* pcap file */
     TmModuleReceivePcapFileRegister();
     TmModuleDecodePcapFileRegister();
@@ -1448,6 +1455,7 @@ static TmEcode ParseCommandLine(int argc, char** argv, SCInstance *suri)
         {"pfring-cluster-type", required_argument, 0, 0},
         {"af-packet", optional_argument, 0, 0},
         {"netmap", optional_argument, 0, 0},
+        {"testimony", optional_argument, 0, 0},
         {"pcap", optional_argument, 0, 0},
         {"pcap-file-continuous", 0, 0, 0},
         {"pcap-file-delete", 0, 0, 0},
@@ -1645,6 +1653,8 @@ static TmEcode ParseCommandLine(int argc, char** argv, SCInstance *suri)
                     fprintf(stderr, "ERROR: Failed to set engine init-failure-fatal.\n");
                     return TM_ECODE_FAILED;
                 }
+            } else if(strcmp((long_opts[option_index]).name, "testimony") == 0) {
+                suri->run_mode = RUNMODE_TESTIMONY;
 #ifdef BUILD_UNIX_SOCKET
             } else if (strcmp((long_opts[option_index]).name , "unix-socket") == 0) {
                 if (suri->run_mode == RUNMODE_UNKNOWN) {
