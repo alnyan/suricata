@@ -6,6 +6,7 @@
 
 #include "source-testimony.h"
 
+#ifdef HAVE_TESTIMONY
 #include <testimony.h>
 
 typedef struct TestimonyThreadVars_ {
@@ -217,3 +218,5 @@ static TmEcode DecodeTestimonyThreadDeinit(ThreadVars *tv, void *data)
     SCEnter();
     SCReturnInt(TM_ECODE_OK);
 }
+
+#endif

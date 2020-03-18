@@ -1297,8 +1297,6 @@
         exit 1
     fi
 
-    LIBS="${LIBS} -ltestimony"
-
     # pcap_activate and pcap_create only exists in libpcap >= 1.0
     LIBPCAPVTEST=""
     #To prevent duping the lib link we reset LIBS after this check. Setting action-if-found to NULL doesn't seem to work
@@ -1437,6 +1435,26 @@
             AC_DEFINE([HAVE_HW_TIMESTAMPING],[1],[Hardware timestamping support is available]),
             [],
             [[#include <linux/net_tstamp.h>]])
+    ])
+
+  # Testimony support
+    AC_ARG_ENABLE(testimony,
+           AS_HELP_STRING([--enable-testimony], [Enable Testimony (unix socket) support [default=yes]]),
+                        [enable_testimony=$enableval],[enable_testimony=yes])
+    AS_IF([test "x$enable_testimony" = "xyes"], [
+        AC_CHECK_HEADER(testimony.h,,[AC_MSG_ERROR(testimony.h not found ...)],)
+        AC_CHECK_LIB(testimony, testimony_connect,, TESTIMONY="no")
+
+        if test "$TESTIMONY" = "no"; then
+            echo
+            echo "   ERROR! libtestimony library not found"
+            echo
+            exit 1
+        fi
+
+        AC_DEFINE([HAVE_TESTIMONY],[1],[Testimony support is available])
+
+        LIBS="${LIBS} -ltestimony"
     ])
 
   # Netmap support
