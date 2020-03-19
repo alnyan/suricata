@@ -127,11 +127,15 @@ static TmEcode ReceiveTestimonyLoop(ThreadVars *tv, void *data, void *slot)
 
 static TmEcode ReceiveTestimonyThreadInit(ThreadVars *tv, const void *initdata, void **data)
 {
-    // TODO: pass this via config
-    const char *socket_path = "testimony.sock";
+    const char *socket_path;
     int res;
 
     SCEnter();
+
+    if (ConfGet("testimony.socket-path", &socket_path) != 1) {
+        SCLogError(SC_ERR_TESTIMONY_CREATE, "No testimony socket path is set\n");
+        SCReturnInt(TM_ECODE_FAILED);
+    }
 
     TestimonyThreadVars *ttv = SCCalloc(1, sizeof(TestimonyThreadVars));
     if (unlikely(ttv == NULL)) {
