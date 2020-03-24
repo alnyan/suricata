@@ -207,7 +207,6 @@ static TmEcode ReceiveTestimonyThreadInit(ThreadVars *tv, const void *initdata, 
     res = testimony_connect(&ttv->t, socket_path);
     if (res < 0) {
         SCLogError(SC_ERR_TESTIMONY_CREATE, "testimony_connect(): %s", strerror(-res));
-        //perror("testimony_connect()");
         SCReturnInt(TM_ECODE_FAILED);
     }
 
@@ -268,7 +267,6 @@ static TmEcode DecodeTestimony(ThreadVars *tv, Packet *p, void *data)
     SCEnter();
     DecodeThreadVars *dtv = (DecodeThreadVars *)data;
 
-    printf("DECODE!\n");
     DecodeUpdatePacketCounters(tv, dtv, p);
 
     // All packets are assumed to be ethernet when using testimony
