@@ -1657,6 +1657,10 @@ static TmEcode ParseCommandLine(int argc, char** argv, SCInstance *suri)
                 }
 #ifdef HAVE_AF_PACKET
             } else if(strcmp((long_opts[option_index]).name, "testimony") == 0) {
+                if (optarg && ConfSetFinal("testimony.socket-path", optarg) == 0) {
+                    fprintf(stderr, "ERROR: Failed to set testimony socket path.\n");
+                    return TM_ECODE_FAILED;
+                }
                 suri->run_mode = RUNMODE_TESTIMONY;
 #endif
 #ifdef BUILD_UNIX_SOCKET
