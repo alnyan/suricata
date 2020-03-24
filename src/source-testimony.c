@@ -143,15 +143,19 @@ static TmEcode ReceiveTestimonyLoop(ThreadVars *tv, void *data, void *slot)
     testimony_iter_init(&iter);
 
     while (ttv->running) {
+        PacketPoolWait();
+
         res = testimony_get_block(ttv->t, 100, &block);
         if (res == 0 && !block) {
             // Timed out
+            StatsSyncCountersIfSignalled(tv);
             continue;
         }
         if (res < 0) {
             SCLogError(SC_ERR_TESTIMONY_GET_BLOCK, "testimony_get_block(): %s, %s",
                     testimony_error(ttv->t),
                     strerror(-res));
+            StatsSyncCountersIfSignalled(tv);
             SCReturnInt(TM_ECODE_FAILED);
         }
 
@@ -165,10 +169,12 @@ static TmEcode ReceiveTestimonyLoop(ThreadVars *tv, void *data, void *slot)
             SCLogError(SC_ERR_TESTIMONY_GET_BLOCK, "testimony_return_block(): %s, %s",
                     testimony_error(ttv->t),
                     strerror(-res));
+            StatsSyncCountersIfSignalled(tv);
             SCReturnInt(TM_ECODE_FAILED);
         }
     }
 
+    StatsSyncCountersIfSignalled(tv);
     SCReturnInt(TM_ECODE_OK);
 }
 
@@ -262,6 +268,7 @@ static TmEcode DecodeTestimony(ThreadVars *tv, Packet *p, void *data)
     SCEnter();
     DecodeThreadVars *dtv = (DecodeThreadVars *)data;
 
+    printf("DECODE!\n");
     DecodeUpdatePacketCounters(tv, dtv, p);
 
     // All packets are assumed to be ethernet when using testimony
