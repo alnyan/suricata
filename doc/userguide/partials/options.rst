@@ -66,12 +66,17 @@
    Run in PCAP mode. If no device is provided the interfaces
    provided in the *pcap* section of the configuration file will be
    used.
-   
+
 .. option:: --af-packet[=<device>]
 
    Enable capture of packet using AF_PACKET on Linux. If no device is
    supplied, the list of devices from the af-packet section in the
    yaml is used.
+
+.. option:: --testimony[=<socket>]
+
+   Enable capture of packet using Testimony Unix socket. If no socket path
+   is supplied, one from testimony section in the yaml is used.
 
 .. option:: -q <queue id>
 
@@ -152,7 +157,7 @@
    Disable the detection engine.
 
 .. Information options.
-   
+
 .. option:: --dump-config
 
    Dump the configuration loaded from the configuration file to the
@@ -219,11 +224,11 @@
 
    Enable PF_RING packet capture. If no device provided, the devices in
    the Suricata configuration will be used.
-  
+
 .. option:: --pfring-cluster-id <id>
 
    Set the PF_RING cluster ID.
-   
+
 .. option:: --pfring-cluster-type <type>
 
    Set the PF_RING cluster type (cluster_round_robin, cluster_flow).
@@ -238,7 +243,7 @@
    stream the stream can be select using a device name like
    "dag0:4". This option may be provided multiple times read off
    multiple devices and/or streams.
-	    
+
 .. option:: --napatech
 
    Enable packet capture using the Napatech Streams API.

@@ -1749,6 +1749,18 @@ firewall at rule number 5500:
 
 .. image:: suricata-yaml/ipfw_reinjection.png
 
+Testimony
+~~~~~~~~~
+
+Suricata supports Google Testimony capture using a Unix Socket on Linux.
+
+The socket is specified as follows:
+
+::
+
+  testimony:
+    socket-path: /path/to/testimony.sock
+
 Rules
 -----
 
